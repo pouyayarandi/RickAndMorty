@@ -15,6 +15,8 @@
 		92930CDC27A880C3005D1B5E /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */; };
 		92930CDF27A884F0005D1B5E /* NetworkLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CDE27A884F0005D1B5E /* NetworkLayerTests.swift */; };
 		92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CE027A889FF005D1B5E /* NetworkLayer.swift */; };
+		92930CE827A8928F005D1B5E /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CE727A8928F005D1B5E /* Character.swift */; };
+		92930CEA27A892A8005D1B5E /* PageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CE927A892A8005D1B5E /* PageData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		92930CDE27A884F0005D1B5E /* NetworkLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerTests.swift; sourceTree = "<group>"; };
 		92930CE027A889FF005D1B5E /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		92930CE727A8928F005D1B5E /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		92930CE927A892A8005D1B5E /* PageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,8 @@
 		92930CE427A890B8005D1B5E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92930CE927A892A8005D1B5E /* PageData.swift */,
+				92930CE727A8928F005D1B5E /* Character.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -296,7 +302,9 @@
 			files = (
 				92930CDC27A880C3005D1B5E /* NetworkProtocol.swift in Sources */,
 				92930CAC27A8806E005D1B5E /* AppDelegate.swift in Sources */,
+				92930CEA27A892A8005D1B5E /* PageData.swift in Sources */,
 				92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */,
+				92930CE827A8928F005D1B5E /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
