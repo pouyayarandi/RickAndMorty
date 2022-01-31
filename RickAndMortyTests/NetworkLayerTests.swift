@@ -14,10 +14,18 @@ class NetworkLayerTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
+        sut = NetworkLayer(session: .shared)
     }
     
+    override func tearDownWithError() throws {
+        try super.tearDownWithError()
+        sut = nil
+    }
+    
+    struct Response: Codable {}
+    
     func testNetworkRequest() throws {
-        sut.request(.init(url: "https://rickandmortyapi.com/api/character")) { (result: Result<Data, NetworkError>) in
+        sut.request(.init(url: "https://rickandmortyapi.com/api/character")) { (result: Result<Response, NetworkError>) in
             switch result {
             case .failure(let error):
                 XCTFail(error.localizedDescription)
