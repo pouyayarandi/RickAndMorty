@@ -103,15 +103,13 @@
 		92930CAA27A8806E005D1B5E /* RickAndMorty */ = {
 			isa = PBXGroup;
 			children = (
-				92930CAB27A8806E005D1B5E /* AppDelegate.swift */,
+				92930CE527A890E5005D1B5E /* Shared */,
 				92930CAD27A8806E005D1B5E /* SceneDelegate.swift */,
 				92930CAF27A8806E005D1B5E /* ViewController.swift */,
 				92930CB127A8806E005D1B5E /* Main.storyboard */,
 				92930CB427A88070005D1B5E /* Assets.xcassets */,
 				92930CB627A88070005D1B5E /* LaunchScreen.storyboard */,
-				92930CB927A88070005D1B5E /* Info.plist */,
-				92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */,
-				92930CE027A889FF005D1B5E /* NetworkLayer.swift */,
+				92930CE327A89081005D1B5E /* Entity */,
 			);
 			path = RickAndMorty;
 			sourceTree = "<group>";
@@ -131,6 +129,40 @@
 				92930CCE27A88070005D1B5E /* RickAndMortyUITestsLaunchTests.swift */,
 			);
 			path = RickAndMortyUITests;
+			sourceTree = "<group>";
+		};
+		92930CE227A89074005D1B5E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */,
+				92930CE027A889FF005D1B5E /* NetworkLayer.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		92930CE327A89081005D1B5E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				92930CE427A890B8005D1B5E /* Models */,
+				92930CE227A89074005D1B5E /* Core */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		92930CE427A890B8005D1B5E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		92930CE527A890E5005D1B5E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				92930CAB27A8806E005D1B5E /* AppDelegate.swift */,
+				92930CB927A88070005D1B5E /* Info.plist */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,7 +480,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RickAndMorty/Info.plist;
+				INFOPLIST_FILE = RickAndMorty/Shared/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -476,7 +508,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = RickAndMorty/Info.plist;
+				INFOPLIST_FILE = RickAndMorty/Shared/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
