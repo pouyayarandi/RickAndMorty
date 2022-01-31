@@ -17,6 +17,7 @@
 		92930CCF27A88070005D1B5E /* RickAndMortyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CCE27A88070005D1B5E /* RickAndMortyUITestsLaunchTests.swift */; };
 		92930CDC27A880C3005D1B5E /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */; };
 		92930CDF27A884F0005D1B5E /* NetworkLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CDE27A884F0005D1B5E /* NetworkLayerTests.swift */; };
+		92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CE027A889FF005D1B5E /* NetworkLayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		92930CCE27A88070005D1B5E /* RickAndMortyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickAndMortyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		92930CDE27A884F0005D1B5E /* NetworkLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerTests.swift; sourceTree = "<group>"; };
+		92930CE027A889FF005D1B5E /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				92930CB627A88070005D1B5E /* LaunchScreen.storyboard */,
 				92930CB927A88070005D1B5E /* Info.plist */,
 				92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */,
+				92930CE027A889FF005D1B5E /* NetworkLayer.swift */,
 			);
 			path = RickAndMorty;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				92930CDC27A880C3005D1B5E /* NetworkProtocol.swift in Sources */,
 				92930CB027A8806E005D1B5E /* ViewController.swift in Sources */,
 				92930CAC27A8806E005D1B5E /* AppDelegate.swift in Sources */,
+				92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */,
 				92930CAE27A8806E005D1B5E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
