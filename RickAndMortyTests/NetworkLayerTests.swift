@@ -21,6 +21,8 @@ class NetworkLayerTests: XCTestCase {
             switch result {
             case .failure(let error):
                 XCTFail(error.localizedDescription)
+            case .success:
+                break
             }
             self.expectation.fulfill()
         }
