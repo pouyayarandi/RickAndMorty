@@ -17,7 +17,7 @@ class NetworkLayerTests: XCTestCase {
     }
     
     func testNetworkRequest() throws {
-        sut.request(.init(url: "https://rickandmortyapi.com/api/character")) { (result: Result<Data, Error>) in
+        sut.request(.init(url: "https://rickandmortyapi.com/api/character")) { (result: Result<Data, NetworkError>) in
             switch result {
             case .failure(let error):
                 XCTFail(error.localizedDescription)

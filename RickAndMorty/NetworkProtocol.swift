@@ -29,8 +29,22 @@ struct NetworkRequestModel {
     }
 }
 
+enum NetworkError: Error {
+    case httpError(_ statusCode: Int)
+    case clientError(_ error: Error)
+    
+    var localizedDescription: String {
+        switch self {
+        case .httpError(let statusCode):
+            return "HTTP Error: \(statusCode)"
+        case .clientError(let error):
+            return error.localizedDescription
+        }
+    }
+}
+
 typealias CompletionHandler<T> = (T) -> Void
 
 protocol NetworkProtocol {
-    func request<T: Decodable>(_ requestModel: NetworkRequestModel, completionHandler: CompletionHandler<Result<T, Error>>?)
+    func request<T: Decodable>(_ requestModel: NetworkRequestModel, completionHandler: CompletionHandler<Result<T, NetworkError>>?)
 }
