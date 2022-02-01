@@ -10,6 +10,12 @@
 		9248A93827A99298001DB54E /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A93727A99298001DB54E /* FileHelper.swift */; };
 		9248A93A27A993F0001DB54E /* Character-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 9248A93927A993F0001DB54E /* Character-1.json */; };
 		9248A93C27A994E9001DB54E /* Character-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 9248A93B27A994E9001DB54E /* Character-2.json */; };
+		9248A94227A99C93001DB54E /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A94127A99C93001DB54E /* ImageCache.swift */; };
+		9248A94427A9A385001DB54E /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A94327A9A385001DB54E /* MockURLProtocol.swift */; };
+		9248A94627A9A4F0001DB54E /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A94527A9A4F0001DB54E /* ImageDownloaderTests.swift */; };
+		9248A94827A9A55B001DB54E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9248A94727A9A55B001DB54E /* Images.xcassets */; };
+		9248A94A27A9CB19001DB54E /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A94927A9CB19001DB54E /* ImageAsset.swift */; };
+		9248A94C27A9D4AC001DB54E /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A94B27A9D4AC001DB54E /* ImageView.swift */; };
 		92930CAC27A8806E005D1B5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CAB27A8806E005D1B5E /* AppDelegate.swift */; };
 		92930CB527A88070005D1B5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92930CB427A88070005D1B5E /* Assets.xcassets */; };
 		92930CB827A88070005D1B5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92930CB627A88070005D1B5E /* LaunchScreen.storyboard */; };
@@ -49,6 +55,12 @@
 		9248A93727A99298001DB54E /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		9248A93927A993F0001DB54E /* Character-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Character-1.json"; sourceTree = "<group>"; };
 		9248A93B27A994E9001DB54E /* Character-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Character-2.json"; sourceTree = "<group>"; };
+		9248A94127A99C93001DB54E /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		9248A94327A9A385001DB54E /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		9248A94527A9A4F0001DB54E /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
+		9248A94727A9A55B001DB54E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9248A94927A9CB19001DB54E /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
+		9248A94B27A9D4AC001DB54E /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		92930CA827A8806E005D1B5E /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92930CAB27A8806E005D1B5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92930CB427A88070005D1B5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,13 +108,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9248A93D27A996B9001DB54E /* MockJSONs */ = {
+		9248A93D27A996B9001DB54E /* MockData */ = {
 			isa = PBXGroup;
 			children = (
+				9248A94727A9A55B001DB54E /* Images.xcassets */,
 				9248A93927A993F0001DB54E /* Character-1.json */,
 				9248A93B27A994E9001DB54E /* Character-2.json */,
 			);
-			path = MockJSONs;
+			path = MockData;
 			sourceTree = "<group>";
 		};
 		9248A93E27A996C9001DB54E /* TestUtilities */ = {
@@ -110,8 +123,17 @@
 			children = (
 				9248A93727A99298001DB54E /* FileHelper.swift */,
 				92930CF727A8A65B005D1B5E /* MockNetworkLayer.swift */,
+				9248A94327A9A385001DB54E /* MockURLProtocol.swift */,
 			);
 			path = TestUtilities;
+			sourceTree = "<group>";
+		};
+		9248A94D27A9D4B2001DB54E /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				9248A94B27A9D4AC001DB54E /* ImageView.swift */,
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		92930C9F27A8806E005D1B5E = {
@@ -141,6 +163,7 @@
 				92930CE627A891B3005D1B5E /* Resources */,
 				92930CEE27A8982F005D1B5E /* Repositories */,
 				92930CE327A89081005D1B5E /* Entity */,
+				9248A94D27A9D4B2001DB54E /* UIComponents */,
 			);
 			path = RickAndMorty;
 			sourceTree = "<group>";
@@ -148,10 +171,11 @@
 		92930CC127A88070005D1B5E /* RickAndMortyTests */ = {
 			isa = PBXGroup;
 			children = (
-				9248A93D27A996B9001DB54E /* MockJSONs */,
+				9248A93D27A996B9001DB54E /* MockData */,
 				9248A93E27A996C9001DB54E /* TestUtilities */,
 				92930CDE27A884F0005D1B5E /* NetworkLayerTests.swift */,
 				92930CF327A89D51005D1B5E /* CharacterRepositoryTests.swift */,
+				9248A94527A9A4F0001DB54E /* ImageDownloaderTests.swift */,
 			);
 			path = RickAndMortyTests;
 			sourceTree = "<group>";
@@ -170,6 +194,8 @@
 			children = (
 				92930CDB27A880C3005D1B5E /* NetworkProtocol.swift */,
 				92930CE027A889FF005D1B5E /* NetworkLayer.swift */,
+				9248A94127A99C93001DB54E /* ImageCache.swift */,
+				9248A94927A9CB19001DB54E /* ImageAsset.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -343,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9248A93C27A994E9001DB54E /* Character-2.json in Resources */,
+				9248A94827A9A55B001DB54E /* Images.xcassets in Resources */,
 				9248A93A27A993F0001DB54E /* Character-1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,11 +388,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9248A94C27A9D4AC001DB54E /* ImageView.swift in Sources */,
+				9248A94227A99C93001DB54E /* ImageCache.swift in Sources */,
 				92930CF027A8988A005D1B5E /* URLProvider.swift in Sources */,
 				92930CF227A898EB005D1B5E /* CharacterRepository.swift in Sources */,
 				92930CDC27A880C3005D1B5E /* NetworkProtocol.swift in Sources */,
 				92930CED27A895C9005D1B5E /* ListRepositoryProtocol.swift in Sources */,
 				92930CAC27A8806E005D1B5E /* AppDelegate.swift in Sources */,
+				9248A94A27A9CB19001DB54E /* ImageAsset.swift in Sources */,
 				92930CEA27A892A8005D1B5E /* PageData.swift in Sources */,
 				92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */,
 				92930CE827A8928F005D1B5E /* Character.swift in Sources */,
@@ -379,6 +409,8 @@
 			files = (
 				92930CDF27A884F0005D1B5E /* NetworkLayerTests.swift in Sources */,
 				92930CF427A89D51005D1B5E /* CharacterRepositoryTests.swift in Sources */,
+				9248A94627A9A4F0001DB54E /* ImageDownloaderTests.swift in Sources */,
+				9248A94427A9A385001DB54E /* MockURLProtocol.swift in Sources */,
 				92930CF827A8A65B005D1B5E /* MockNetworkLayer.swift in Sources */,
 				9248A93827A99298001DB54E /* FileHelper.swift in Sources */,
 			);

@@ -31,11 +31,6 @@ class CharacterRepository: CharacterRepositoryProtocol, ListRepositoryProtocol {
         .init(url: CharacterURLProvider.firstPage.path)
     }
     
-    var nextPageRequest: NetworkRequestModel? {
-        guard let path = lastPageInfo?.next else { return nil }
-        return .init(url: path)
-    }
-    
     init(network: NetworkProtocol) {
         self.network = network
     }

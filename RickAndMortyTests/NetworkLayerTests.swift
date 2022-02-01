@@ -8,17 +8,9 @@
 import XCTest
 @testable import RickAndMorty
 
-class MockProtocol: URLProtocol {
-    var statusCode: Int = 200
-    var response: String = #"{"message": "ok"}"#
-    override class func canInit(with request: URLRequest) -> Bool { true }
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
-    override func stopLoading() {}
-    override func startLoading() {
-        client?.urlProtocol(self, didLoad: response.data(using: .utf8)!)
-        client?.urlProtocol(self, didReceive: HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!, cacheStoragePolicy: .notAllowed)
-        client?.urlProtocolDidFinishLoading(self)
-    }
+struct SuccessfulResponse: Response {
+    static var statusCode: Int { 200 }
+    static var responseData: Data { #"{"message": "ok"}"#.data(using: .utf8)! }
 }
 
 class NetworkLayerTests: XCTestCase {
@@ -28,7 +20,7 @@ class NetworkLayerTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockProtocol.self]
+        config.protocolClasses = [MockProtocol<SuccessfulResponse>.self]
         let session = URLSession(configuration: config)
         sut = NetworkLayer(session: session)
     }

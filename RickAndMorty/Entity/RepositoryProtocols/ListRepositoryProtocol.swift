@@ -18,6 +18,11 @@ protocol ListRepositoryProtocol: AnyObject {
 }
 
 extension ListRepositoryProtocol {
+    var nextPageRequest: NetworkRequestModel? {
+        guard let path = lastPageInfo?.next else { return nil }
+        return .init(url: path)
+    }
+    
     var hasNextPage: Bool {
         lastPageInfo?.hasNextPage ?? false
     }
