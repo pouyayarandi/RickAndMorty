@@ -12,6 +12,10 @@ struct CharacterListResponse: Codable {
     var results: [CharacterResponse]
 }
 
+extension CharacterListResponse: PageResponse {
+    var pageData: PageData { info }
+}
+
 struct CharacterResponse: Codable {
     enum Status: String, Codable {
         case alive = "Alive"

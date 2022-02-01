@@ -17,3 +17,7 @@ struct PageData: Codable {
         next != nil
     }
 }
+
+protocol PageResponse: Codable {
+    var pageData: PageData { get }
+}

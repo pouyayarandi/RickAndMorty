@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkRequestModel {
+struct NetworkRequestModel: Hashable, Equatable {
     enum Method: String {
         case get = "GET"
     }
