@@ -14,9 +14,7 @@ class ImageView: UIImageView {
         }
         didSet {
             imageAsset?.loadImage { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.image = image
-                }
+                self?.image = image
             }
         }
     }

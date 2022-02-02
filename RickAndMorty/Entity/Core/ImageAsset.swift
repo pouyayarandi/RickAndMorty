@@ -18,19 +18,24 @@ protocol ImageAsset {
 }
 
 class URLImageAsset: ImageAsset {
-    var url: URL
+    var url: URL?
     var session: URLSession
     var cache: ImageCacheProtocol?
     
     private var task: URLSessionDataTask?
     
-    init(_ url: URL, session: URLSession = .shared, cache: ImageCacheProtocol? = nil) {
+    init(_ url: URL?, session: URLSession = .shared, cache: ImageCacheProtocol? = nil) {
         self.url = url
         self.session = session
         self.cache = cache
     }
     
     func loadImage(_ completionHandler: @escaping (UIImage?) -> Void) {
+        guard let url = url else {
+            completionHandler(nil)
+            return
+        }
+
         if let image = cache?.getImage(for: url) {
             completionHandler(image)
             return
@@ -42,8 +47,10 @@ class URLImageAsset: ImageAsset {
                 completionHandler(nil)
                 return
             }
-            self.cache?.storeImage(image, for: self.url)
-            completionHandler(image)
+            self.cache?.storeImage(image, for: url)
+            DispatchQueue.main.async {
+                completionHandler(image)
+            }
         }
         
         task?.resume()
