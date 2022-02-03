@@ -18,6 +18,8 @@ class CharacterListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Characters title".localized
+        
         setupTableView()
         bindView()
         

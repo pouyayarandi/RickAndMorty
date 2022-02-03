@@ -17,6 +17,8 @@ class LocationListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Locations title".localized
+        
         setupTableView()
         bindView()
         

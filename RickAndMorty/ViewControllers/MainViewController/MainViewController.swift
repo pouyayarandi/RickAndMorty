@@ -15,8 +15,8 @@ class MainViewController: BaseTabBarController {
         
         var title: String {
             switch self {
-            case .character: return "Characters"
-            case .location: return "Locations"
+            case .character: return "Characters title".localized
+            case .location: return "Locations title".localized
             }
         }
         

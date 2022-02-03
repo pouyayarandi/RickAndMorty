@@ -5,7 +5,6 @@
 //  Created by Pouya on 11/14/1400 AP.
 //
 
-import Foundation
 import UIKit
 
 class GenericCell: BaseCell {

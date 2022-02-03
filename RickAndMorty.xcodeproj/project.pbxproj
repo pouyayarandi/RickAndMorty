@@ -52,6 +52,8 @@
 		92FA1C4027AC191400BA8D70 /* GenericCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C3F27AC191400BA8D70 /* GenericCell.swift */; };
 		92FA1C4327AC19DE00BA8D70 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C4227AC19DE00BA8D70 /* LocationListViewController.swift */; };
 		92FA1C4527AC1A5200BA8D70 /* LocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C4427AC1A5200BA8D70 /* LocationCoordinator.swift */; };
+		92FA1C4727AC1C5700BA8D70 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92FA1C4627AC1C5600BA8D70 /* Localizable.strings */; };
+		92FA1C4A27AC1CF900BA8D70 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C4927AC1CF900BA8D70 /* String+Extensions.swift */; };
 		92FA32CE27AB3FAF00E4FE13 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32CD27AB3FAF00E4FE13 /* BaseCell.swift */; };
 		92FA32D127AB455400E4FE13 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 92FA32D027AB455400E4FE13 /* SnapshotTesting */; };
 		92FA32D327AB458600E4FE13 /* CharacterListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */; };
@@ -123,6 +125,8 @@
 		92FA1C3F27AC191400BA8D70 /* GenericCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCell.swift; sourceTree = "<group>"; };
 		92FA1C4227AC19DE00BA8D70 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		92FA1C4427AC1A5200BA8D70 /* LocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinator.swift; sourceTree = "<group>"; };
+		92FA1C4627AC1C5600BA8D70 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		92FA1C4927AC1CF900BA8D70 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		92FA32CD27AB3FAF00E4FE13 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +303,7 @@
 		92930CE527A890E5005D1B5E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				92FA1C4827AC1CE200BA8D70 /* Extensions */,
 				92930CAB27A8806E005D1B5E /* AppDelegate.swift */,
 				92930CB927A88070005D1B5E /* Info.plist */,
 			);
@@ -310,6 +315,7 @@
 			children = (
 				92930CB427A88070005D1B5E /* Assets.xcassets */,
 				92930CB627A88070005D1B5E /* LaunchScreen.storyboard */,
+				92FA1C4627AC1C5600BA8D70 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -376,6 +382,14 @@
 				92FA1C4227AC19DE00BA8D70 /* LocationListViewController.swift */,
 			);
 			path = LocationListViewController;
+			sourceTree = "<group>";
+		};
+		92FA1C4827AC1CE200BA8D70 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				92FA1C4927AC1CF900BA8D70 /* String+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -493,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92930CB827A88070005D1B5E /* LaunchScreen.storyboard in Resources */,
+				92FA1C4727AC1C5700BA8D70 /* Localizable.strings in Resources */,
 				92FA1C2D27ABF8C900BA8D70 /* MainViewController.xib in Resources */,
 				92930CB527A88070005D1B5E /* Assets.xcassets in Resources */,
 			);
@@ -550,6 +565,7 @@
 				92FA1C3E27AC175300BA8D70 /* LocationListViewModel.swift in Sources */,
 				92FA1C4327AC19DE00BA8D70 /* LocationListViewController.swift in Sources */,
 				92FA1C2427ABEE3000BA8D70 /* MainViewController.swift in Sources */,
+				92FA1C4A27AC1CF900BA8D70 /* String+Extensions.swift in Sources */,
 				92930CE827A8928F005D1B5E /* Character.swift in Sources */,
 				92930CF627A8A55D005D1B5E /* CharacterRepositoryProtocol.swift in Sources */,
 			);
