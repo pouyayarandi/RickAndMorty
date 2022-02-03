@@ -11,16 +11,18 @@ class AppCoordinator: Coordinator {
     var navigationController: UINavigationController?
     
     private var window: UIWindow
-    private var networkLayer: NetworkProtocol
+    private var container: IoCContainer
+    private var network: NetworkProtocol
     
-    init(window: UIWindow, networkLayer: NetworkProtocol) {
+    init(window: UIWindow, container: IoCContainer) {
         self.window = window
-        self.networkLayer = networkLayer
+        self.container = container
+        network = container.container.resolve(NetworkProtocol.self)!
     }
     
     func start() -> UIViewController {
         let vc = MainViewController(nibName: "MainViewController", bundle: nil)
-        let charactersFlow = CharacterCoordinator(networkLayer: networkLayer)
+        let charactersFlow = CharacterCoordinator(container: container)
         vc.setCoordinators([charactersFlow], animated: false)
         
         vc.setTabBar(index: 0, with: .character)

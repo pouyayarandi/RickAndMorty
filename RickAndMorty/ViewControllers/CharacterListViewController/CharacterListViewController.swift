@@ -26,6 +26,7 @@ class CharacterListViewController: BaseViewController {
     
     private func setupTableView() {
         tableView.register(CharacterCell.self, forCellReuseIdentifier: Self.cellID)
+        tableView.allowsSelection = false
         tableView.delegate = self
         tableView.dataSource = self
         stackHolder.addArrangedSubview(tableView)

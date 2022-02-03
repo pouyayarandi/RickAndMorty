@@ -11,13 +11,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var appCoordinator: Coordinator?
+    var appCoordinator: Coordinator!
+    var appContainer: AppContainer!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        window = UIWindow(frame: UIScreen.main.bounds)
-        appCoordinator = AppCoordinator(window: window!, networkLayer: NetworkLayer(session: .shared))
-        _ = appCoordinator?.start()
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+        
+        appContainer = AppContainer()
+        appContainer.register()
+        
+        appCoordinator = AppCoordinator(window: window, container: appContainer)
+        _ = appCoordinator.start()
+        
         return true
     }
 

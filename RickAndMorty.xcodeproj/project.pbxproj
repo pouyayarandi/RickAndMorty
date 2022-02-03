@@ -43,6 +43,8 @@
 		92FA1C2B27ABF48800BA8D70 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C2A27ABF48800BA8D70 /* AppCoordinator.swift */; };
 		92FA1C2D27ABF8C900BA8D70 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FA1C2C27ABF8C900BA8D70 /* MainViewController.xib */; };
 		92FA1C3027AC068300BA8D70 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C2F27AC068300BA8D70 /* BaseTabBarController.swift */; };
+		92FA1C3327AC0A5A00BA8D70 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 92FA1C3227AC0A5A00BA8D70 /* Swinject */; };
+		92FA1C3627AC0AB500BA8D70 /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C3527AC0AB500BA8D70 /* AppContainer.swift */; };
 		92FA32CE27AB3FAF00E4FE13 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32CD27AB3FAF00E4FE13 /* BaseCell.swift */; };
 		92FA32D127AB455400E4FE13 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 92FA32D027AB455400E4FE13 /* SnapshotTesting */; };
 		92FA32D327AB458600E4FE13 /* CharacterListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */; };
@@ -106,6 +108,7 @@
 		92FA1C2A27ABF48800BA8D70 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		92FA1C2C27ABF8C900BA8D70 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		92FA1C2F27AC068300BA8D70 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		92FA1C3527AC0AB500BA8D70 /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
 		92FA32CD27AB3FAF00E4FE13 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92FA1C3327AC0A5A00BA8D70 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				92930CE527A890E5005D1B5E /* Shared */,
+				92FA1C3427AC0AA900BA8D70 /* Containers */,
 				92FA1C2527ABF2B200BA8D70 /* Coordinators */,
 				9248A95327AB34EA001DB54E /* ViewControllers */,
 				9248A95027AB1F82001DB54E /* ViewModels */,
@@ -336,6 +341,14 @@
 			path = MainViewController;
 			sourceTree = "<group>";
 		};
+		92FA1C3427AC0AA900BA8D70 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				92FA1C3527AC0AB500BA8D70 /* AppContainer.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -352,6 +365,9 @@
 			dependencies = (
 			);
 			name = RickAndMorty;
+			packageProductDependencies = (
+				92FA1C3227AC0A5A00BA8D70 /* Swinject */,
+			);
 			productName = RickAndMorty;
 			productReference = 92930CA827A8806E005D1B5E /* RickAndMorty.app */;
 			productType = "com.apple.product-type.application";
@@ -429,6 +445,7 @@
 			mainGroup = 92930C9F27A8806E005D1B5E;
 			packageReferences = (
 				92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				92FA1C3127AC0A5A00BA8D70 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = 92930CA927A8806E005D1B5E /* Products */;
 			projectDirPath = "";
@@ -479,6 +496,7 @@
 				9248A94F27AB1F76001DB54E /* CharacterListViewModel.swift in Sources */,
 				9248A94C27A9D4AC001DB54E /* ImageView.swift in Sources */,
 				92FA1C2927ABF30200BA8D70 /* CharacterCoordinator.swift in Sources */,
+				92FA1C3627AC0AB500BA8D70 /* AppContainer.swift in Sources */,
 				9248A94227A99C93001DB54E /* ImageCache.swift in Sources */,
 				92930CF027A8988A005D1B5E /* URLProvider.swift in Sources */,
 				9248A95527AB350D001DB54E /* CharacterListViewController.swift in Sources */,
@@ -858,6 +876,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		92FA1C3127AC0A5A00BA8D70 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
@@ -869,6 +895,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		92FA1C3227AC0A5A00BA8D70 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92FA1C3127AC0A5A00BA8D70 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
 		92FA32D027AB455400E4FE13 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;

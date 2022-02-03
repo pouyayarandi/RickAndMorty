@@ -9,10 +9,15 @@ import UIKit
 
 class CharacterCoordinator: Coordinator {
     var navigationController: UINavigationController?
+    
+    private var container: IoCContainer
+    private var network: NetworkProtocol
     private var characterRepository: CharacterRepositoryProtocol
     
-    init(networkLayer: NetworkProtocol) {
-        characterRepository = CharacterRepository(network: networkLayer)
+    init(container: IoCContainer) {
+        self.container = container
+        network = container.container.resolve(NetworkProtocol.self)!
+        characterRepository = CharacterRepository(network: network)
     }
     
     func start() -> UIViewController {
