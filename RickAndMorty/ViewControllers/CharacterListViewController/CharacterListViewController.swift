@@ -33,7 +33,9 @@ class CharacterListViewController: BaseViewController {
     
     private func bindView() {
         viewModel.items.sink { [weak self] _ in
-            self?.tableView.reloadData()
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }.store(in: &bag)
     }
 }

@@ -18,8 +18,12 @@ struct NetworkRequestModel: Hashable, Equatable {
     
     var request: URLRequest? {
         guard var components = URLComponents(string: url) else { return nil }
-        components.queryItems = query.map {
-            URLQueryItem(name: $0.key, value: $0.value)
+        let additionalQueries = query.map({ URLQueryItem(name: $0.key, value: $0.value) })
+        
+        if components.queryItems == nil {
+            components.queryItems = additionalQueries
+        } else {
+            components.queryItems?.append(contentsOf: additionalQueries)
         }
         
         guard let url = components.url else { return nil }

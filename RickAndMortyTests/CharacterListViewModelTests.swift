@@ -38,12 +38,14 @@ class CharacterListViewModelTests: XCTestCase {
     
     func testViewDidLoad() throws {
         sut.viewDidLoad()
+        XCTAssertEqual(sut.items.value.last?.name, "Ants in my Eyes Johnson")
         XCTAssertEqual(sut.items.value.count, 20)
     }
     
     func testViewDidRequestForNextPage() {
         sut.viewDidLoad()
         sut.viewDidRequestForNextPage()
+        XCTAssertEqual(sut.items.value.last?.name, "Beth's Mytholog")
         XCTAssertEqual(sut.items.value.count, 40)
     }
 }
