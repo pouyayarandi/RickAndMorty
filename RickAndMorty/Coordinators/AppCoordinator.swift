@@ -22,10 +22,13 @@ class AppCoordinator: Coordinator {
     
     func start() -> UIViewController {
         let vc = MainViewController(nibName: "MainViewController", bundle: nil)
+        
         let charactersFlow = CharacterCoordinator(container: container)
-        vc.setCoordinators([charactersFlow], animated: false)
+        let locationsFlow = LocationCoordinator(container: container)
+        vc.setCoordinators([charactersFlow, locationsFlow], animated: false)
         
         vc.setTabBar(index: 0, with: .character)
+        vc.setTabBar(index: 1, with: .location)
         
         window.rootViewController = vc
         window.makeKeyAndVisible()

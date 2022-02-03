@@ -11,16 +11,19 @@ import UIKit
 class MainViewController: BaseTabBarController {
     enum Tab {
         case character
+        case location
         
         var title: String {
             switch self {
-            case .character: return "Character"
+            case .character: return "Characters"
+            case .location: return "Locations"
             }
         }
         
         var image: UIImage? {
             switch self {
             case .character: return .init(systemName: "person.crop.circle.fill")
+            case .location: return .init(systemName: "location.circle.fill")
             }
         }
     }

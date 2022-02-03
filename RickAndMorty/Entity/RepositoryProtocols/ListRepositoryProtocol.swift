@@ -27,8 +27,8 @@ extension ListRepositoryProtocol {
         lastPageInfo?.hasNextPage ?? false
     }
     
-    func getFirstPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
-        network.request(firstPageRequest) { [weak self] (result: Result<CharacterListResponse, NetworkError>) in
+    func getFirstPage(completionHandler: CompletionHandler<Result<Response, NetworkError>>?) {
+        network.request(firstPageRequest) { [weak self] (result: Result<Response, NetworkError>) in
             if case .success(let response) = result {
                 self?.lastPageInfo = response.pageData
             }
@@ -36,9 +36,9 @@ extension ListRepositoryProtocol {
         }
     }
     
-    func getNextPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
+    func getNextPage(completionHandler: CompletionHandler<Result<Response, NetworkError>>?) {
         guard let nextPageRequest = nextPageRequest else { return }
-        network.request(nextPageRequest) { [weak self] (result: Result<CharacterListResponse, NetworkError>) in
+        network.request(nextPageRequest) { [weak self] (result: Result<Response, NetworkError>) in
             if case .success(let response) = result {
                 self?.lastPageInfo = response.pageData
             }
