@@ -241,7 +241,7 @@
 				9248A95327AB34EA001DB54E /* ViewControllers */,
 				9248A95027AB1F82001DB54E /* ViewModels */,
 				92930CEE27A8982F005D1B5E /* Repositories */,
-				92930CE327A89081005D1B5E /* Entity */,
+				92930CE327A89081005D1B5E /* Core */,
 				9248A94D27A9D4B2001DB54E /* UIComponents */,
 				92930CE627A891B3005D1B5E /* Resources */,
 			);
@@ -283,14 +283,14 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		92930CE327A89081005D1B5E /* Entity */ = {
+		92930CE327A89081005D1B5E /* Core */ = {
 			isa = PBXGroup;
 			children = (
 				92930CEB27A89585005D1B5E /* RepositoryProtocols */,
 				92930CE427A890B8005D1B5E /* Models */,
 				92930CE227A89074005D1B5E /* Core */,
 			);
-			path = Entity;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		92930CE427A890B8005D1B5E /* Models */ = {
