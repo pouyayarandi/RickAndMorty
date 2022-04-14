@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import Combine
 
 class CharacterListViewController: BaseViewController {
+    private struct SectionItem: Hashable {}
     private var tableView = UITableView()
     
     var imageCache: ImageCacheProtocol?
     var viewModel: CharacterListViewModelProtocol!
+
+    private var dataSource: UITableViewDiffableDataSource<SectionItem, CharacterResponse>!
+    private var dataObservation: AnyCancellable?
+    private var errorObservation: AnyCancellable?
     
     private static let cellID = "CharacterCell"
         
@@ -20,47 +26,53 @@ class CharacterListViewController: BaseViewController {
         
         title = "Characters title".localized
         
+        setupDataSource()
         setupTableView()
         bindView()
         
         viewModel.viewDidLoad()
+    }
+
+    private func setupDataSource() {
+        dataSource = UITableViewDiffableDataSource<SectionItem, CharacterResponse>(tableView: tableView) { [weak self] tableView, indexPath, itemIdentifier in
+            self?.cell(for: tableView, indexPath: indexPath, item: itemIdentifier) ?? UITableViewCell()
+        }
+    }
+
+    private func cell(for tableView: UITableView, indexPath: IndexPath, item: CharacterResponse) -> CharacterCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellID, for: indexPath) as! CharacterCell
+        
+        cell.avatar = URLImageAsset(URL(string: item.image ?? ""), cache: imageCache)
+        cell.status = item.status.rawValue.localizedCapitalized
+        cell.title = item.name
+        
+        return cell
     }
     
     private func setupTableView() {
         tableView.register(CharacterCell.self, forCellReuseIdentifier: Self.cellID)
         tableView.allowsSelection = false
         tableView.delegate = self
-        tableView.dataSource = self
         stackHolder.addArrangedSubview(tableView)
     }
     
     private func bindView() {
-        viewModel.items.sink { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+        dataObservation = viewModel.output.$items
+            .map({ $0.snapshot(for: SectionItem()) })
+            .subscribe(on: DispatchQueue.main)
+            .sink { [weak self] items in
+                self?.dataSource.apply(items)
             }
-        }.store(in: &bag)
+        
+        errorObservation = viewModel.output.error
+            .subscribe(on: DispatchQueue.main)
+            .sink {
+                ToastMessage.showError(message: $0)
+            }
     }
 }
 
-extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int { 1 }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.items.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.items.value[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellID, for: indexPath) as! CharacterCell
-        
-        cell.avatar = URLImageAsset(URL(string: item.image ?? ""), cache: imageCache)
-        cell.title = item.name
-        cell.status = item.status.rawValue.localizedCapitalized
-        
-        return cell
-    }
-    
+extension CharacterListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         100
     }
@@ -69,5 +81,14 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
         if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
             viewModel.viewDidRequestForNextPage()
         }
+    }
+}
+
+extension Array where Element: Hashable {
+    func snapshot<Section: Hashable>(for section: Section) -> NSDiffableDataSourceSnapshot<Section, Element> {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Element>()
+        snapshot.appendSections([section])
+        snapshot.appendItems(self)
+        return snapshot
     }
 }

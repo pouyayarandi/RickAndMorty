@@ -22,7 +22,7 @@ class CharacterCoordinator: Coordinator {
     
     func start() -> UIViewController {
         let vc = CharacterListViewController()
-        vc.viewModel = CharacterListViewModel(repository: characterRepository)
+        vc.viewModel = CharacterListViewModel(output: .init(), repository: characterRepository)
         vc.imageCache = MemoryImageCache.shared
         let nv = UINavigationController.init(rootViewController: vc)
         self.navigationController = nv
