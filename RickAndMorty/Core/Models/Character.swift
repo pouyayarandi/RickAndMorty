@@ -16,7 +16,7 @@ extension CharacterListResponse: PageResponse {
     var pageData: PageData { info }
 }
 
-struct CharacterResponse: Codable, Hashable {
+struct CharacterResponse: Codable {
     enum Status: String, Codable {
         case alive = "Alive"
         case dead = "Dead"

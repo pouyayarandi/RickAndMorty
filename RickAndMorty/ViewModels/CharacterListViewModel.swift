@@ -8,24 +8,19 @@
 import Foundation
 import Combine
 
-class CharacterListViewOutput {
-    @Published var items: [CharacterResponse] = []
-    var error: PassthroughSubject<String, Never> = .init()
-}
-
 protocol CharacterListViewModelProtocol: AnyObject {
-    var output: CharacterListViewOutput { get }
+    var items: CurrentValueSubject<[CharacterResponse], Never> { get }
     
     func viewDidLoad()
     func viewDidRequestForNextPage()
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
-    var output: CharacterListViewOutput
+    var items: CurrentValueSubject<[CharacterResponse], Never> = .init([])
+    
     var repository: CharacterRepositoryProtocol
     
-    init(output: CharacterListViewOutput, repository: CharacterRepositoryProtocol) {
-        self.output = output
+    init(repository: CharacterRepositoryProtocol) {
         self.repository = repository
     }
     
@@ -33,20 +28,23 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
         repository.getCharactersFirstPage { [weak self] result in
             switch result {
             case .success(let data):
-                self?.output.items = data.results
+                self?.items.send(data.results)
             case .failure(let error):
-                self?.output.error.send(error.localizedDescription)
+                ToastMessage.showError(message: error.localizedDescription)
             }
         }
     }
     
     func viewDidRequestForNextPage() {
         repository.getCharactersNextPage { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let data):
-                self?.output.items.append(contentsOf: data.results)
+                var items = self.items.value
+                items.append(contentsOf: data.results)
+                self.items.send(items)
             case .failure(let error):
-                self?.output.error.send(error.localizedDescription)
+                ToastMessage.showError(message: error.localizedDescription)
             }
         }
     }
