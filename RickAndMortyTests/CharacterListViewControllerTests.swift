@@ -44,7 +44,6 @@ class CharacterListViewControllerTests: XCTestCase {
     
     func testLoadCharacterListView() {
         sut.loadViewIfNeeded()
-        assertSnapshot(matching: sut, as: .image(on: .iPhone8))
-        assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 20)
     }
 }

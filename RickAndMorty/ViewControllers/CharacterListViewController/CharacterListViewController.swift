@@ -8,7 +8,7 @@
 import UIKit
 
 class CharacterListViewController: BaseViewController {
-    private var tableView = UITableView()
+    var tableView = UITableView()
     
     var imageCache: ImageCacheProtocol?
     var viewModel: CharacterListViewModelProtocol!
