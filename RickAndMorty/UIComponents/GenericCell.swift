@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GenericCell: BaseTableCell {
+class GenericCell: BaseCell {
     
     private var titleLabel = UILabel()
     private var subtitleLabel = UILabel()

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CharacterCell: BaseCollectionCell {
+class CharacterCell: BaseCell {
     private var avatarView = ImageView()
     private var titleLabel = UILabel()
     private var statusLabel = UILabel()
@@ -47,7 +47,6 @@ class CharacterCell: BaseCollectionCell {
         super.setup()
         
         stackHolder.distribution = .fill
-        stackHolder.alignment = .center
         stackHolder.axis = .horizontal
         stackHolder.spacing = 16
         
