@@ -27,6 +27,20 @@ extension ListRepositoryProtocol {
         lastPageInfo?.hasNextPage ?? false
     }
     
+    func getFirstPage() async throws -> Response {
+        let response: Response = try await network.request(firstPageRequest)
+        lastPageInfo = response.pageData
+        return response
+    }
+    
+    func getNextPage() async throws -> Response? {
+        guard let nextPageRequest = nextPageRequest else { return nil }
+        let response: Response = try await network.request(nextPageRequest)
+        lastPageInfo = response.pageData
+        return response
+    }
+    
+    @available(*, deprecated, message: "Use async method instead")
     func getFirstPage(completionHandler: CompletionHandler<Result<Response, NetworkError>>?) {
         network.request(firstPageRequest) { [weak self] (result: Result<Response, NetworkError>) in
             if case .success(let response) = result {
@@ -36,6 +50,7 @@ extension ListRepositoryProtocol {
         }
     }
     
+    @available(*, deprecated, message: "Use async method instead")
     func getNextPage(completionHandler: CompletionHandler<Result<Response, NetworkError>>?) {
         guard let nextPageRequest = nextPageRequest else { return }
         network.request(nextPageRequest) { [weak self] (result: Result<Response, NetworkError>) in

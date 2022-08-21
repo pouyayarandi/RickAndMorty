@@ -10,6 +10,16 @@ import Foundation
 import XCTest
 
 fileprivate class MockCharacterRepository: CharacterRepositoryProtocol {
+    func getCharactersFirstPage() async throws -> CharacterListResponse {
+        let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
+        return data
+    }
+    
+    func getCharactersNextPage() async throws -> CharacterListResponse? {
+        let data: CharacterListResponse = FileHelper.objectFromFile("Character-2")
+        return data
+    }
+    
     func getCharactersFirstPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
         let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
         completionHandler?(.success(data))
@@ -37,15 +47,22 @@ class CharacterListViewModelTests: XCTestCase {
     }
     
     func testViewDidLoad() throws {
+        let expectation = XCTestExpectation(description: "Wait for initial load")
+        
         sut.viewDidLoad()
-        XCTAssertEqual(sut.items.value.last?.name, "Ants in my Eyes Johnson")
-        XCTAssertEqual(sut.items.value.count, 20)
+        
+        _ = sut.output.$items.sink { items in
+            XCTAssertEqual(items.last?.name, "Ants in my Eyes Johnson")
+            XCTAssertEqual(items.count, 20)
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func testViewDidRequestForNextPage() {
         sut.viewDidLoad()
         sut.viewDidRequestForNextPage()
-        XCTAssertEqual(sut.items.value.last?.name, "Beth's Mytholog")
-        XCTAssertEqual(sut.items.value.count, 40)
+        XCTAssertEqual(sut.output.items.last?.name, "Beth's Mytholog")
+        XCTAssertEqual(sut.output.items.count, 40)
     }
 }

@@ -8,16 +8,19 @@
 import Foundation
 import Combine
 
+class CharacterListOutput {
+    @Published var items: [CharacterResponse] = []
+}
+
 protocol CharacterListViewModelProtocol: AnyObject {
-    var items: CurrentValueSubject<[CharacterResponse], Never> { get }
+    var output: CharacterListOutput { get set }
     
     func viewDidLoad()
     func viewDidRequestForNextPage()
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
-    var items: CurrentValueSubject<[CharacterResponse], Never> = .init([])
-    
+    var output: CharacterListOutput = .init()
     var repository: CharacterRepositoryProtocol
     
     init(repository: CharacterRepositoryProtocol) {
@@ -25,27 +28,32 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
     }
     
     func viewDidLoad() {
-        repository.getCharactersFirstPage { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.items.send(data.results)
-            case .failure(let error):
-                ToastMessage.showError(message: error.localizedDescription)
-            }
+        Task.detached {
+            await self.getFirstPage()
         }
     }
     
     func viewDidRequestForNextPage() {
-        repository.getCharactersNextPage { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                var items = self.items.value
-                items.append(contentsOf: data.results)
-                self.items.send(items)
-            case .failure(let error):
-                ToastMessage.showError(message: error.localizedDescription)
-            }
+        Task.detached {
+            await self.getNextPage()
         }
+    }
+    
+    private func getFirstPage() async {
+        do {
+            let data = try await repository.getCharactersFirstPage()
+            output.items = data.results
+        } catch let error as NetworkError {
+            ToastMessage.showError(message: error.localizedDescription)
+        } catch {}
+    }
+    
+    private func getNextPage() async {
+        do {
+            let data = try await repository.getCharactersNextPage()
+            output.items.append(contentsOf: data?.results ?? [])
+        } catch let error as NetworkError {
+            ToastMessage.showError(message: error.localizedDescription)
+        } catch {}
     }
 }

@@ -50,5 +50,7 @@ enum NetworkError: Error {
 typealias CompletionHandler<T> = (T) -> Void
 
 protocol NetworkProtocol {
+    @available(*, deprecated, message: "Use async method instead")
     func request<T: Decodable>(_ requestModel: NetworkRequestModel, completionHandler: CompletionHandler<Result<T, NetworkError>>?)
+    func request<T: Decodable>(_ requestModel: NetworkRequestModel) async throws -> T
 }

@@ -35,11 +35,13 @@ class CharacterListViewController: BaseViewController {
     }
     
     private func bindView() {
-        viewModel.items.sink { [weak self] _ in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+        viewModel.output.$items
+            .sink { [weak self] _ in
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             }
-        }.store(in: &bag)
+            .store(in: &bag)
     }
 }
 
@@ -47,11 +49,11 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.items.value.count
+        viewModel.output.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.items.value[indexPath.row]
+        let item = viewModel.output.items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellID, for: indexPath) as! CharacterCell
         
         cell.avatar = URLImageAsset(URL(string: item.image ?? ""), cache: imageCache)

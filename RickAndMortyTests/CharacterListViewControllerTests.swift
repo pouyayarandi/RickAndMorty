@@ -21,11 +21,11 @@ class MockImageCache: ImageCacheProtocol {
 }
 
 class MockCharacterListViewModel: CharacterListViewModelProtocol {
-    var items: CurrentValueSubject<[CharacterResponse], Never> = .init([])
+    var output: CharacterListOutput = .init()
     
     func viewDidLoad() {
         let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
-        items.send(data.results)
+        output.items = data.results
     }
     
     func viewDidRequestForNextPage() {}
