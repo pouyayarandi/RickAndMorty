@@ -47,6 +47,7 @@ class CharacterCell: BaseCell {
         super.setup()
         
         stackHolder.distribution = .fill
+        stackHolder.alignment = .center
         stackHolder.axis = .horizontal
         stackHolder.spacing = 16
         

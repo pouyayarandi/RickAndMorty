@@ -46,22 +46,15 @@ class CharacterListViewModelTests: XCTestCase {
         try super.tearDownWithError()
     }
     
-    func testViewDidLoad() throws {
-        let expectation = XCTestExpectation(description: "Wait for initial load")
-        
-        sut.viewDidLoad()
-        
-        _ = sut.output.$items.sink { items in
-            XCTAssertEqual(items.last?.name, "Ants in my Eyes Johnson")
-            XCTAssertEqual(items.count, 20)
-        }
-        
-        wait(for: [expectation], timeout: 1.0)
+    func testViewDidLoad() async throws {
+        await sut.viewDidLoad()
+        XCTAssertEqual(sut.output.items.last?.name, "Ants in my Eyes Johnson")
+        XCTAssertEqual(sut.output.items.count, 20)
     }
     
-    func testViewDidRequestForNextPage() {
-        sut.viewDidLoad()
-        sut.viewDidRequestForNextPage()
+    func testViewDidRequestForNextPage() async {
+        await sut.viewDidLoad()
+        await sut.viewDidRequestForNextPage()
         XCTAssertEqual(sut.output.items.last?.name, "Beth's Mytholog")
         XCTAssertEqual(sut.output.items.count, 40)
     }

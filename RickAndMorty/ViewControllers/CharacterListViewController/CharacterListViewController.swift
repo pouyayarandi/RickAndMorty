@@ -23,7 +23,9 @@ class CharacterListViewController: BaseViewController {
         setupTableView()
         bindView()
         
-        viewModel.viewDidLoad()
+        Task {
+            await viewModel.viewDidLoad()
+        }
     }
     
     private func setupTableView() {
@@ -31,6 +33,7 @@ class CharacterListViewController: BaseViewController {
         tableView.allowsSelection = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         stackHolder.addArrangedSubview(tableView)
     }
     
@@ -45,7 +48,7 @@ class CharacterListViewController: BaseViewController {
     }
 }
 
-extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource {
+extension CharacterListViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,9 +70,12 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
         100
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
-            viewModel.viewDidRequestForNextPage()
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        Task {
+            let indexPath = IndexPath(row: viewModel.output.items.count - 1, section: 0)
+            if indexPaths.contains(indexPath) {
+                await viewModel.viewDidRequestForNextPage()
+            }
         }
     }
 }

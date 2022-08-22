@@ -15,8 +15,8 @@ class CharacterListOutput {
 protocol CharacterListViewModelProtocol: AnyObject {
     var output: CharacterListOutput { get set }
     
-    func viewDidLoad()
-    func viewDidRequestForNextPage()
+    func viewDidLoad() async
+    func viewDidRequestForNextPage() async
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
@@ -27,16 +27,12 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
         self.repository = repository
     }
     
-    func viewDidLoad() {
-        Task.detached {
-            await self.getFirstPage()
-        }
+    func viewDidLoad() async {
+        await self.getFirstPage()
     }
     
-    func viewDidRequestForNextPage() {
-        Task.detached {
-            await self.getNextPage()
-        }
+    func viewDidRequestForNextPage() async {
+        await self.getNextPage()
     }
     
     private func getFirstPage() async {

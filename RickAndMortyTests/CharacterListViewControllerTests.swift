@@ -43,7 +43,15 @@ class CharacterListViewControllerTests: XCTestCase {
     }
     
     func testLoadCharacterListView() {
+        let expectation = XCTestExpectation(description: "Wait for view to be loaded")
         sut.loadViewIfNeeded()
-        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 20)
+        
+        DispatchQueue.main.async {
+            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
+            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1)
     }
 }
