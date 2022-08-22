@@ -10,6 +10,7 @@ import Combine
 
 class CharacterListOutput {
     @Published var items: [CharacterResponse] = []
+    var error: PassthroughSubject<String, Never> = .init()
 }
 
 protocol CharacterListViewModelProtocol: AnyObject {
@@ -39,17 +40,17 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
         do {
             let data = try await repository.getCharactersFirstPage()
             output.items = data.results
-        } catch let error as NetworkError {
-            ToastMessage.showError(message: error.localizedDescription)
-        } catch {}
+        } catch {
+            output.error.send(error.localizedDescription)
+        }
     }
     
     private func getNextPage() async {
         do {
             let data = try await repository.getCharactersNextPage()
             output.items.append(contentsOf: data?.results ?? [])
-        } catch let error as NetworkError {
-            ToastMessage.showError(message: error.localizedDescription)
-        } catch {}
+        } catch {
+            output.error.send(error.localizedDescription)
+        }
     }
 }

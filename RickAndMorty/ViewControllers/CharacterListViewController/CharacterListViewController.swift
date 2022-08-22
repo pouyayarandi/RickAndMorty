@@ -45,6 +45,14 @@ class CharacterListViewController: BaseViewController {
                 }
             }
             .store(in: &bag)
+
+        viewModel.output.error
+            .sink { errorMessage in
+                DispatchQueue.main.async {
+                    ToastMessage.showError(message: errorMessage)
+                }
+            }
+            .store(in: &bag)
     }
 }
 
