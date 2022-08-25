@@ -7,7 +7,7 @@
 
 import UIKit
 
-fileprivate class ToastMessageView: UIView {
+class ToastMessageView: UIView {
     private var messageLabel = UILabel()
     
     enum MessageType {
@@ -37,10 +37,7 @@ fileprivate class ToastMessageView: UIView {
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
+    required init?(coder: NSCoder) { nil }
     
     private func setup() {
         addSubview(messageLabel)
@@ -63,44 +60,71 @@ fileprivate class ToastMessageView: UIView {
 }
 
 class ToastMessage {
-    static func showError(message: String) {
-        DispatchQueue.main.async {
-            guard let window = UIApplication.shared.delegate?.window?.flatMap({ $0 }) else { return }
-            
-            let view = ToastMessageView()
-            view.message = message
-            view.type = .error
-            
-            window.addSubview(view)
-            view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: window.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: window.trailingAnchor)
-            ])
-            window.layoutIfNeeded()
-            
-            let openConstraint = view.topAnchor.constraint(equalTo: window.safeAreaLayoutGuide.topAnchor)
-            let closeConstraint = view.bottomAnchor.constraint(equalTo: window.topAnchor)
-            
+    private static var defaultView: UIView? {
+        UIApplication.shared.delegate?.window?.flatMap { $0 }
+    }
+    
+    #if DEBUG
+    static var dismissAutomatically = true
+    #endif
+    
+    @MainActor
+    static func showError(message: String, on view: UIView? = defaultView) async {
+        guard let parent = view else { return }
+        
+        let view = ToastMessageView()
+        view.message = message
+        view.type = .error
+        
+        parent.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: parent.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: parent.trailingAnchor)
+        ])
+        parent.layoutIfNeeded()
+        
+        let openConstraint = view.topAnchor.constraint(equalTo: parent.safeAreaLayoutGuide.topAnchor)
+        let closeConstraint = view.bottomAnchor.constraint(equalTo: parent.topAnchor)
+        
+        openConstraint.isActive = false
+        closeConstraint.isActive = true
+        parent.layoutIfNeeded()
+        
+        await UIView.animate(withDuration: 0.3) {
+            openConstraint.isActive = true
+            closeConstraint.isActive = false
+            parent.layoutIfNeeded()
+        }
+        
+        #if DEBUG
+        guard dismissAutomatically else { return }
+        #endif
+        
+        try? await Task.sleep(seconds: 2)
+        
+        await UIView.animate(withDuration: 0.3) {
             openConstraint.isActive = false
             closeConstraint.isActive = true
-            window.layoutIfNeeded()
-            
-            UIView.animate(withDuration: 0.3) {
-                openConstraint.isActive = true
-                closeConstraint.isActive = false
-                window.layoutIfNeeded()
-            } completion: { _ in
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                    UIView.animate(withDuration: 0.3) {
-                        openConstraint.isActive = false
-                        closeConstraint.isActive = true
-                        window.layoutIfNeeded()
-                    } completion: { _ in
-                        view.removeFromSuperview()
-                    }
-                }
-            }
+            parent.layoutIfNeeded()
         }
+        
+        view.removeFromSuperview()
+    }
+}
+
+extension UIView {
+    static func animate(withDuration duration: TimeInterval, animations: @escaping () -> Void) async {
+        await withCheckedContinuation({ continuation in
+            animate(withDuration: duration, animations: animations) { _ in
+                continuation.resume()
+            }
+        })
+    }
+}
+
+extension Task where Success == Never, Failure == Never {
+    static func sleep(seconds: TimeInterval) async throws {
+        try await sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
     }
 }

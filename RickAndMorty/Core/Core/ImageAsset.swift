@@ -61,19 +61,3 @@ class URLImageAsset: ImageAsset {
         imageView.image = nil
     }
 }
-
-class LocalImageAsset: ImageAsset {
-    var image: Image
-    
-    init(_ image: Image) {
-        self.image = image
-    }
-    
-    func loadImage(_ completionHandler: @escaping (UIImage?) -> Void) {
-        completionHandler(.init(named: image.name))
-    }
-    
-    func unloadImage(_ imageView: UIImageView) {
-        imageView.image = nil
-    }
-}

@@ -34,21 +34,44 @@ class MockCharacterListViewModel: CharacterListViewModelProtocol {
 class CharacterListViewControllerTests: XCTestCase {
     var sut: CharacterListViewController!
     
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        
-        sut = CharacterListViewController(viewModel: MockCharacterListViewModel())
-        sut.imageCache = MockImageCache()
-    }
-    
     func testLoadCharacterListView() async {
         await MainActor.run {
+            sut = CharacterListViewController(viewModel: MockCharacterListViewModel())
+            sut.imageCache = MockImageCache()
             sut.loadViewIfNeeded()
         }
         
         await MainActor.run {
-            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
-            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
         }
+    }
+    
+    func testFailureLoadCharacterList() async throws {
+        await MainActor.run {
+            UIView.setAnimationsEnabled(false)
+            ToastMessage.dismissAutomatically = false
+            sut = CharacterListViewController(viewModel: MockFailingCharacterViewModel())
+            sut.loadViewIfNeeded()
+        }
+        
+        try await Task.sleep(nanoseconds: 1_000_000)
+        
+        await MainActor.run {
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+        }
+    }
+}
+
+class MockFailingCharacterViewModel: CharacterListViewModelProtocol {
+    var output: CharacterListOutput = .init()
+    
+    func viewDidLoad() async {
+        output.error.send("Some error message")
+    }
+    
+    func viewDidRequestForNextPage() async {
+        output.error.send("Some error message")
     }
 }

@@ -39,12 +39,4 @@ class CharacterRepository: CharacterRepositoryProtocol, ListRepositoryProtocol {
     func getCharactersNextPage() async throws -> CharacterListResponse? {
         try await getNextPage()
     }
-    
-    func getCharactersFirstPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
-        getFirstPage(completionHandler: completionHandler)
-    }
-    
-    func getCharactersNextPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
-        getNextPage(completionHandler: completionHandler)
-    }
 }

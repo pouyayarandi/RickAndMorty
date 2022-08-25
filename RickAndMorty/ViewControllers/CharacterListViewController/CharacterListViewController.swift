@@ -55,8 +55,8 @@ class CharacterListViewController: BaseViewController {
 
         viewModel.output.error
             .sink { errorMessage in
-                DispatchQueue.main.async {
-                    ToastMessage.showError(message: errorMessage)
+                Task {
+                    await ToastMessage.showError(message: errorMessage, on: self.view)
                 }
             }
             .store(in: &bag)

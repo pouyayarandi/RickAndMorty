@@ -34,7 +34,8 @@ class LocationListViewModel: LocationListViewModelProtocol {
             case .success(let data):
                 self?.items.send(data.results)
             case .failure(let error):
-                ToastMessage.showError(message: error.localizedDescription)
+                break
+//                ToastMessage.showError(message: error.localizedDescription)
             }
         }
     }
@@ -48,7 +49,8 @@ class LocationListViewModel: LocationListViewModelProtocol {
                 items.append(contentsOf: data.results)
                 self.items.send(items)
             case .failure(let error):
-                ToastMessage.showError(message: error.localizedDescription)
+                break
+//                ToastMessage.showError(message: error.localizedDescription)
             }
         }
     }
