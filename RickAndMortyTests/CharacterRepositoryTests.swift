@@ -26,36 +26,27 @@ class CharacterRepositoryTests: XCTestCase {
         try super.tearDownWithError()
     }
 
-    func testGetFirstCharacterPage() throws {
+    func testGetFirstCharacterPage() async throws {
         let firstPageResponse: CharacterListResponse = FileHelper.objectFromFile("Character-1")
         networkLayer.mocks[.init(url: "https://rickandmortyapi.com/api/character")] = .success(firstPageResponse)
         
-        sut.getCharactersFirstPage { result in
-            let response = try! result.get()
-            XCTAssertEqual(response.results.first?.name, "Rick Sanchez")
-            XCTAssertTrue(response.pageData.hasNextPage)
-            self.expectation.fulfill()
-        }
+        let response = try await sut.getCharactersFirstPage()
         
-        wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(response.results.first?.name, "Rick Sanchez")
+        XCTAssertTrue(response.pageData.hasNextPage)
     }
     
-    func testGetFirstCharacterPageThenSecondPage() throws {
-        let firstPageResponse: CharacterListResponse = FileHelper.objectFromFile("Character-1")
-        networkLayer.mocks[.init(url: "https://rickandmortyapi.com/api/character")] = .success(firstPageResponse)
-        let secondPageResponse: CharacterListResponse = FileHelper.objectFromFile("Character-2")
-        networkLayer.mocks[.init(url: "https://rickandmortyapi.com/api/character?page=2")] = .success(secondPageResponse)
+    func testGetFirstCharacterPageThenSecondPage() async throws {
+        let firstPageMockResponse: CharacterListResponse = FileHelper.objectFromFile("Character-1")
+        networkLayer.mocks[.init(url: "https://rickandmortyapi.com/api/character")] = .success(firstPageMockResponse)
+        let secondPageMockResponse: CharacterListResponse = FileHelper.objectFromFile("Character-2")
+        networkLayer.mocks[.init(url: "https://rickandmortyapi.com/api/character?page=2")] = .success(secondPageMockResponse)
         
-        sut.getCharactersFirstPage { result in
-            let response = try! result.get()
-            XCTAssertEqual(response.results.first?.name, "Rick Sanchez")
-            XCTAssertTrue(response.pageData.hasNextPage)
-            self.sut.getCharactersNextPage { result in
-                XCTAssertEqual((try! result.get()).results.first!.name, "Aqua Morty")
-                self.expectation.fulfill()
-            }
-        }
+        let firstPageResponse = try await sut.getCharactersFirstPage()
+        XCTAssertEqual(firstPageResponse.results.first?.name, "Rick Sanchez")
+        XCTAssertTrue(firstPageResponse.pageData.hasNextPage)
         
-        wait(for: [expectation], timeout: 1)
+        let nextPageResponse = try await sut.getCharactersNextPage()
+        XCTAssertEqual(nextPageResponse?.results.first?.name, "Aqua Morty")
     }
 }

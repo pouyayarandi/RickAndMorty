@@ -10,29 +10,35 @@ import UIKit
 class AppCoordinator: Coordinator {
     var navigationController: UINavigationController?
     
+    weak var parentCoordinator: Coordinator?
+    var childCoordinators: [Coordinator] = []
+    
     private var window: UIWindow
     private var container: IoCContainer
-    private var network: NetworkProtocol
     
     init(window: UIWindow, container: IoCContainer) {
         self.window = window
         self.container = container
-        network = container.container.resolve(NetworkProtocol.self)!
     }
     
-    func start() -> UIViewController {
-        let vc = MainViewController(nibName: "MainViewController", bundle: nil)
+    func start() {
+        let vc = MainViewController()
         
-        let charactersFlow = CharacterCoordinator(container: container)
-        let locationsFlow = LocationCoordinator(container: container)
-        vc.setCoordinators([charactersFlow, locationsFlow], animated: false)
+        let tabCoordinators: [Coordinator] = [
+            CharacterCoordinator(container: container, parent: vc),
+            LocationCoordinator(container: container, parent: vc)
+        ]
+        
+        for coordinator in tabCoordinators {
+            childCoordinators.append(coordinator)
+            coordinator.parentCoordinator = self
+            coordinator.start()
+        }
         
         vc.setTabBar(index: 0, with: .character)
         vc.setTabBar(index: 1, with: .location)
         
         window.rootViewController = vc
         window.makeKeyAndVisible()
-        
-        return vc
     }
 }

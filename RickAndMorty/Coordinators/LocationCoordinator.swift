@@ -8,23 +8,26 @@
 import UIKit
 
 class LocationCoordinator: Coordinator {
+    weak var parentCoordinator: Coordinator?
+    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController?
     
     private var container: IoCContainer
-    private var network: NetworkProtocol
-    private var locationRepository: LocationRepositoryProtocol
+    weak private var parent: MainViewController?
     
-    init(container: IoCContainer) {
+    init(container: IoCContainer, parent: MainViewController) {
         self.container = container
-        network = container.container.resolve(NetworkProtocol.self)!
-        locationRepository = LocationRepository(network: network)
+        self.parent = parent
     }
     
-    func start() -> UIViewController {
+    func start() {
+        guard let repository = container.resolve(LocationRepositoryProtocol.self) else { return }
+        
         let vc = LocationListViewController()
-        vc.viewModel = LocationListViewModel(repository: locationRepository)
+        vc.viewModel = LocationListViewModel(repository: repository)
         let nv = UINavigationController.init(rootViewController: vc)
         self.navigationController = nv
-        return nv
+        
+        parent?.appendViewController(nv, animated: false)
     }
 }

@@ -9,16 +9,28 @@ import Foundation
 import Swinject
 
 protocol IoCContainer {
-    var container: Container { get }
-    func register()
+    func registerServices()
+    func resolve<T>(_ type: T.Type) -> T?
 }
 
 class AppContainer: IoCContainer {
     var container: Container = .init()
     
-    func register() {
+    func registerServices() {
         container.register(NetworkProtocol.self) { _ in
             NetworkLayer(session: .shared)
         }
+
+        container.register(CharacterRepositoryProtocol.self) { resolver in
+            CharacterRepository(network: resolver.resolve(NetworkProtocol.self)!)
+        }
+
+        container.register(LocationRepositoryProtocol.self) { resolver in
+            LocationRepository(network: resolver.resolve(NetworkProtocol.self)!)
+        }
+    }
+    
+    func resolve<T>(_ type: T.Type) -> T? {
+        container.resolve(type)
     }
 }

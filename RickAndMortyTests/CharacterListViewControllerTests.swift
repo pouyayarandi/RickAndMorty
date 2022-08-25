@@ -42,16 +42,14 @@ class CharacterListViewControllerTests: XCTestCase {
         sut.imageCache = MockImageCache()
     }
     
-    func testLoadCharacterListView() {
-        let expectation = XCTestExpectation(description: "Wait for view to be loaded")
-        sut.loadViewIfNeeded()
-        
-        DispatchQueue.main.async {
-            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
-            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
-            expectation.fulfill()
+    func testLoadCharacterListView() async {
+        await MainActor.run {
+            sut.loadViewIfNeeded()
         }
         
-        wait(for: [expectation], timeout: 1)
+        await MainActor.run {
+            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
+            assertSnapshot(matching: self.sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+        }
     }
 }

@@ -5,10 +5,9 @@
 //  Created by Pouya on 11/14/1400 AP.
 //
 
-import Foundation
 import UIKit
 
-class MainViewController: BaseTabBarController {
+class MainViewController: UITabBarController {
     enum Tab {
         case character
         case location
@@ -33,5 +32,10 @@ class MainViewController: BaseTabBarController {
         tabBar.items?[index].title = tab.title
         tabBar.items?[index].image = tab.image
         tabBar.items?[index].selectedImage = tab.image
+    }
+
+    func appendViewController(_ vc: UIViewController, animated: Bool) {
+        let viewControllers = (self.viewControllers ?? []) + [vc]
+        setViewControllers(viewControllers, animated: animated)
     }
 }

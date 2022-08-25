@@ -22,7 +22,7 @@ class RickAndMortyUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testCharacterListPagination() throws {
+    func testCharacterListPagination() {
         let app = XCUIApplication()
         app.launch()
 
@@ -39,5 +39,16 @@ class RickAndMortyUITests: XCTestCase {
         _ = table.cells.firstMatch.waitForExistence(timeout: 0.5)
         
         XCTAssertEqual(table.cells.count, cellCountBeforePagination * 2)
+    }
+    
+    func testChangeTabToLocation() {
+        let app = XCUIApplication()
+        app.launch()
+        
+        app.tabBars.firstMatch.buttons["Locations"].tap()
+        let cells = app.tables.firstMatch.cells
+        _ = cells.firstMatch.waitForExistence(timeout: 0.5)
+        
+        XCTAssertGreaterThan(cells.count, 0)
     }
 }

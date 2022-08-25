@@ -8,24 +8,27 @@
 import UIKit
 
 class CharacterCoordinator: Coordinator {
+    weak var parentCoordinator: Coordinator?
+    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController?
     
     private var container: IoCContainer
-    private var network: NetworkProtocol
-    private var characterRepository: CharacterRepositoryProtocol
+    weak private var parent: MainViewController?
     
-    init(container: IoCContainer) {
+    init(container: IoCContainer, parent: MainViewController) {
         self.container = container
-        network = container.container.resolve(NetworkProtocol.self)!
-        characterRepository = CharacterRepository(network: network)
+        self.parent = parent
     }
     
-    func start() -> UIViewController {
+    func start() {
+        guard let repository = container.resolve(CharacterRepositoryProtocol.self) else { return }
+        
         let vc = CharacterListViewController()
-        vc.viewModel = CharacterListViewModel(repository: characterRepository)
+        vc.viewModel = CharacterListViewModel(repository: repository)
         vc.imageCache = MemoryImageCache.shared
         let nv = UINavigationController.init(rootViewController: vc)
         self.navigationController = nv
-        return nv
+        
+        parent?.appendViewController(nv, animated: false)
     }
 }

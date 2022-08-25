@@ -13,17 +13,14 @@ struct SuccessfulResponse: Response {
     static var responseData: Data { #"{"message": "ok"}"#.data(using: .utf8)! }
 }
 
+struct FailureResponse: Response {
+    static var statusCode: Int { 404 }
+    static var responseData: Data { #"{"message": "not found"}"#.data(using: .utf8)! }
+}
+
 class NetworkLayerTests: XCTestCase {
     var sut: NetworkProtocol!
     var expectation = XCTestExpectation()
-    
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-        let config = URLSessionConfiguration.default
-        config.protocolClasses = [MockProtocol<SuccessfulResponse>.self]
-        let session = URLSession(configuration: config)
-        sut = NetworkLayer(session: session)
-    }
     
     override func tearDownWithError() throws {
         try super.tearDownWithError()
@@ -34,17 +31,29 @@ class NetworkLayerTests: XCTestCase {
         var message: String
     }
     
-    func testNetworkRequest() throws {
-        sut.request(.init(url: "https://example.com")) { (result: Result<Response, NetworkError>) in
-            switch result {
-            case .success(let value):
-                XCTAssertEqual(value.message, "ok")
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
-            }
-            self.expectation.fulfill()
-        }
+    func testNetworkSuccessRequest() async throws {
+        let config = URLSessionConfiguration.default
+        config.protocolClasses = [MockProtocol<SuccessfulResponse>.self]
+        let session = URLSession(configuration: config)
+        sut = NetworkLayer(session: session)
         
-        wait(for: [expectation], timeout: 2)
+        let response: Response = try await sut.request(.init(url: "https://example.com"))
+        
+        XCTAssertEqual(response.message, "ok")
+    }
+    
+    func testNetworkFailureRequest() async throws {
+        let config = URLSessionConfiguration.default
+        config.protocolClasses = [MockProtocol<FailureResponse>.self]
+        let session = URLSession(configuration: config)
+        sut = NetworkLayer(session: session)
+        
+        do {
+            let _: Response = try await sut.request(.init(url: "https://example.com"))
+        } catch let error as NetworkError {
+            XCTAssertEqual(error.localizedDescription, NetworkError.httpError(404).localizedDescription)
+        } catch {
+            XCTFail("Error should be `NetworkError`")
+        }
     }
 }
