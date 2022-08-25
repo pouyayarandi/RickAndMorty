@@ -21,12 +21,11 @@ class CharacterCoordinator: Coordinator {
     }
     
     func start() {
-        guard let repository = container.resolve(CharacterRepositoryProtocol.self) else { return }
-        
-        let vc = CharacterListViewController()
-        vc.viewModel = CharacterListViewModel(repository: repository)
+        guard let vm = CharacterListViewModel(container: container) else { return }
+
+        let vc = CharacterListViewController(viewModel: vm)
         vc.imageCache = MemoryImageCache.shared
-        let nv = UINavigationController.init(rootViewController: vc)
+        let nv = UINavigationController(rootViewController: vc)
         self.navigationController = nv
         
         parent?.appendViewController(nv, animated: false)

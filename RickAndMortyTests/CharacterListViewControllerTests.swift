@@ -37,8 +37,7 @@ class CharacterListViewControllerTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        sut = CharacterListViewController()
-        sut.viewModel = MockCharacterListViewModel()
+        sut = CharacterListViewController(viewModel: MockCharacterListViewModel())
         sut.imageCache = MockImageCache()
     }
     

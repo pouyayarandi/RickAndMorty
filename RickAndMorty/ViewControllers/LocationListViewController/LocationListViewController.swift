@@ -10,7 +10,14 @@ import UIKit
 class LocationListViewController: BaseViewController {
     private var tableView = UITableView()
     
-    var viewModel: LocationListViewModelProtocol!
+    var viewModel: LocationListViewModelProtocol
+    
+    init(viewModel: LocationListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { nil }
     
     private static let cellID = "LocationCell"
         

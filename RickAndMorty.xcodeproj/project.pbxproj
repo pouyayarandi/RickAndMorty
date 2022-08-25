@@ -21,6 +21,7 @@
 		9248A95527AB350D001DB54E /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A95427AB350D001DB54E /* CharacterListViewController.swift */; };
 		9248A95727AB35CD001DB54E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A95627AB35CD001DB54E /* BaseViewController.swift */; };
 		9248A95927AB3CD2001DB54E /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A95827AB3CD2001DB54E /* CharacterCell.swift */; };
+		9260715D28B7745600099C2A /* MockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9260715C28B7745600099C2A /* MockContainer.swift */; };
 		92930CAC27A8806E005D1B5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CAB27A8806E005D1B5E /* AppDelegate.swift */; };
 		92930CB527A88070005D1B5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92930CB427A88070005D1B5E /* Assets.xcassets */; };
 		92930CB827A88070005D1B5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92930CB627A88070005D1B5E /* LaunchScreen.storyboard */; };
@@ -90,6 +91,7 @@
 		9248A95427AB350D001DB54E /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
 		9248A95627AB35CD001DB54E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9248A95827AB3CD2001DB54E /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		9260715C28B7745600099C2A /* MockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContainer.swift; sourceTree = "<group>"; };
 		92930CA827A8806E005D1B5E /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92930CAB27A8806E005D1B5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92930CB427A88070005D1B5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				9248A93727A99298001DB54E /* FileHelper.swift */,
 				92930CF727A8A65B005D1B5E /* MockNetworkLayer.swift */,
 				9248A94327A9A385001DB54E /* MockURLProtocol.swift */,
+				9260715C28B7745600099C2A /* MockContainer.swift */,
 			);
 			path = TestUtilities;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				9248A94627A9A4F0001DB54E /* ImageDownloaderTests.swift in Sources */,
 				9248A95227AB2EBB001DB54E /* CharacterListViewModelTests.swift in Sources */,
 				92FA32D327AB458600E4FE13 /* CharacterListViewControllerTests.swift in Sources */,
+				9260715D28B7745600099C2A /* MockContainer.swift in Sources */,
 				9248A94427A9A385001DB54E /* MockURLProtocol.swift in Sources */,
 				92930CF827A8A65B005D1B5E /* MockNetworkLayer.swift in Sources */,
 				9248A93827A99298001DB54E /* FileHelper.swift in Sources */,

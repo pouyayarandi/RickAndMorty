@@ -20,7 +20,11 @@ class LocationListViewModel: LocationListViewModelProtocol {
     
     var repository: LocationRepositoryProtocol
     
-    init(repository: LocationRepositoryProtocol) {
+    init?(container: IoCContainer) {
+        guard let repository = container.resolve(LocationRepositoryProtocol.self) else {
+            return nil
+        }
+        
         self.repository = repository
     }
     

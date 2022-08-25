@@ -24,7 +24,11 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
     var output: CharacterListOutput = .init()
     var repository: CharacterRepositoryProtocol
     
-    init(repository: CharacterRepositoryProtocol) {
+    init?(container: IoCContainer) {
+        guard let repository = container.resolve(CharacterRepositoryProtocol.self) else {
+            return nil
+        }
+        
         self.repository = repository
     }
     

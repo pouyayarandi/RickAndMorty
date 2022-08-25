@@ -11,7 +11,14 @@ class CharacterListViewController: BaseViewController {
     var tableView = UITableView()
     
     var imageCache: ImageCacheProtocol?
-    var viewModel: CharacterListViewModelProtocol!
+    var viewModel: CharacterListViewModelProtocol
+
+    init(viewModel: CharacterListViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) { nil }
     
     private static let cellID = "CharacterCell"
         

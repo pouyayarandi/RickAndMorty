@@ -21,10 +21,9 @@ class LocationCoordinator: Coordinator {
     }
     
     func start() {
-        guard let repository = container.resolve(LocationRepositoryProtocol.self) else { return }
+        guard let vm = LocationListViewModel(container: container) else { return }
         
-        let vc = LocationListViewController()
-        vc.viewModel = LocationListViewModel(repository: repository)
+        let vc = LocationListViewController(viewModel: vm)
         let nv = UINavigationController.init(rootViewController: vc)
         self.navigationController = nv
         

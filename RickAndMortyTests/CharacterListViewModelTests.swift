@@ -9,36 +9,13 @@ import Foundation
 @testable import RickAndMorty
 import XCTest
 
-fileprivate class MockCharacterRepository: CharacterRepositoryProtocol {
-    func getCharactersFirstPage() async throws -> CharacterListResponse {
-        let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
-        return data
-    }
-    
-    func getCharactersNextPage() async throws -> CharacterListResponse? {
-        let data: CharacterListResponse = FileHelper.objectFromFile("Character-2")
-        return data
-    }
-    
-    func getCharactersFirstPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
-        let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
-        completionHandler?(.success(data))
-    }
-    
-    func getCharactersNextPage(completionHandler: CompletionHandler<Result<CharacterListResponse, NetworkError>>?) {
-        let data: CharacterListResponse = FileHelper.objectFromFile("Character-2")
-        completionHandler?(.success(data))
-    }
-    
-    func getCharacter(_ id: Int, completionHandler: CompletionHandler<Result<CharacterResponse, NetworkError>>?) {}
-}
-
 class CharacterListViewModelTests: XCTestCase {
     var sut: CharacterListViewModelProtocol!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = CharacterListViewModel(repository: MockCharacterRepository())
+        let container = MockContainer()
+        sut = CharacterListViewModel(container: container)
     }
     
     override func tearDownWithError() throws {
