@@ -37,6 +37,7 @@
 		92930CF427A89D51005D1B5E /* CharacterRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CF327A89D51005D1B5E /* CharacterRepositoryTests.swift */; };
 		92930CF627A8A55D005D1B5E /* CharacterRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CF527A8A55D005D1B5E /* CharacterRepositoryProtocol.swift */; };
 		92930CF827A8A65B005D1B5E /* MockNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92930CF727A8A65B005D1B5E /* MockNetworkLayer.swift */; };
+		9297CF7528B82980007C462C /* ToastMessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9297CF7428B82980007C462C /* ToastMessageTests.swift */; };
 		92FA1C2427ABEE3000BA8D70 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C2327ABEE3000BA8D70 /* MainViewController.swift */; };
 		92FA1C2727ABF2E400BA8D70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C2627ABF2E400BA8D70 /* Coordinator.swift */; };
 		92FA1C2927ABF30200BA8D70 /* CharacterCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C2827ABF30200BA8D70 /* CharacterCoordinator.swift */; };
@@ -111,6 +112,7 @@
 		92930CF327A89D51005D1B5E /* CharacterRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepositoryTests.swift; sourceTree = "<group>"; };
 		92930CF527A8A55D005D1B5E /* CharacterRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepositoryProtocol.swift; sourceTree = "<group>"; };
 		92930CF727A8A65B005D1B5E /* MockNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkLayer.swift; sourceTree = "<group>"; };
+		9297CF7428B82980007C462C /* ToastMessageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageTests.swift; sourceTree = "<group>"; };
 		92FA1C2327ABEE3000BA8D70 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		92FA1C2627ABF2E400BA8D70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		92FA1C2827ABF30200BA8D70 /* CharacterCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCoordinator.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				9248A94527A9A4F0001DB54E /* ImageDownloaderTests.swift */,
 				9248A95127AB2EBB001DB54E /* CharacterListViewModelTests.swift */,
 				92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */,
+				9297CF7428B82980007C462C /* ToastMessageTests.swift */,
 			);
 			path = RickAndMortyTests;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92930CDF27A884F0005D1B5E /* NetworkLayerTests.swift in Sources */,
+				9297CF7528B82980007C462C /* ToastMessageTests.swift in Sources */,
 				92930CF427A89D51005D1B5E /* CharacterRepositoryTests.swift in Sources */,
 				9248A94627A9A4F0001DB54E /* ImageDownloaderTests.swift in Sources */,
 				9248A95227AB2EBB001DB54E /* CharacterListViewModelTests.swift in Sources */,

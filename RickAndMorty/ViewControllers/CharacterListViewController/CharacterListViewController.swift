@@ -46,18 +46,15 @@ class CharacterListViewController: BaseViewController {
     
     private func bindView() {
         viewModel.output.$items
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
+                self?.tableView.reloadData()
             }
             .store(in: &bag)
 
         viewModel.output.error
-            .sink { errorMessage in
-                Task {
-                    await ToastMessage.showError(message: errorMessage, on: self.view)
-                }
+            .sink { [weak self] message in
+                self?.showMessage(for: message)
             }
             .store(in: &bag)
     }

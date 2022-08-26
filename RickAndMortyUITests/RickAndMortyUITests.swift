@@ -48,7 +48,15 @@ class RickAndMortyUITests: XCTestCase {
         app.tabBars.firstMatch.buttons["Locations"].tap()
         let cells = app.tables.firstMatch.cells
         _ = cells.firstMatch.waitForExistence(timeout: 0.5)
+        let lastCell = cells.allElementsBoundByIndex.last!
+        let initialCellCount = cells.count
         
-        XCTAssertGreaterThan(cells.count, 0)
+        XCTAssertGreaterThan(initialCellCount, 0)
+        
+        while !lastCell.isHittable {
+            app.tables.firstMatch.swipeUp()
+        }
+        
+        XCTAssertGreaterThan(app.tables.firstMatch.cells.count, initialCellCount)
     }
 }

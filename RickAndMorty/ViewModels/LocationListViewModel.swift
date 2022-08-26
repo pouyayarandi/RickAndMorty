@@ -10,6 +10,7 @@ import Combine
 
 protocol LocationListViewModelProtocol: AnyObject {
     var items: CurrentValueSubject<[LocationResponse], Never> { get }
+    var error: PassthroughSubject<String, Never> { get }
     
     func viewDidLoad()
     func viewDidRequestForNextPage()
@@ -17,6 +18,7 @@ protocol LocationListViewModelProtocol: AnyObject {
 
 class LocationListViewModel: LocationListViewModelProtocol {
     var items: CurrentValueSubject<[LocationResponse], Never> = .init([])
+    var error: PassthroughSubject<String, Never> = .init()
     
     var repository: LocationRepositoryProtocol
     
@@ -34,8 +36,7 @@ class LocationListViewModel: LocationListViewModelProtocol {
             case .success(let data):
                 self?.items.send(data.results)
             case .failure(let error):
-                break
-//                ToastMessage.showError(message: error.localizedDescription)
+                self?.error.send(error.localizedDescription)
             }
         }
     }
@@ -49,8 +50,7 @@ class LocationListViewModel: LocationListViewModelProtocol {
                 items.append(contentsOf: data.results)
                 self.items.send(items)
             case .failure(let error):
-                break
-//                ToastMessage.showError(message: error.localizedDescription)
+                self.error.send(error.localizedDescription)
             }
         }
     }

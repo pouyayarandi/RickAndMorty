@@ -37,19 +37,27 @@ class LocationListViewController: BaseViewController {
         tableView.allowsSelection = false
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         stackHolder.addArrangedSubview(tableView)
     }
     
     private func bindView() {
-        viewModel.items.sink { [weak self] _ in
-            DispatchQueue.main.async {
+        viewModel.items
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
-        }.store(in: &bag)
+            .store(in: &bag)
+        
+        viewModel.error
+            .sink { [weak self] message in
+                self?.showMessage(for: message)
+            }
+            .store(in: &bag)
     }
 }
 
-extension LocationListViewController: UITableViewDelegate, UITableViewDataSource {
+extension LocationListViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,8 +78,9 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         85
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let indexPath = IndexPath(row: viewModel.items.value.count - 1, section: 0)
+        if indexPaths.contains(indexPath) {
             viewModel.viewDidRequestForNextPage()
         }
     }

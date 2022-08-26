@@ -25,4 +25,10 @@ class BaseViewController: UIViewController {
         ])
         self.view = view
     }
+    
+    final func showMessage(for message: String) {
+        Task {
+            await ToastMessage.showError(message: message, on: view)
+        }
+    }
 }

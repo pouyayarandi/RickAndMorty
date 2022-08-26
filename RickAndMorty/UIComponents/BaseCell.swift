@@ -16,10 +16,7 @@ class BaseCell: UITableViewCell {
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
+    required init?(coder: NSCoder) { nil }
     
     func setup() {
         contentView.addSubview(stackHolder)

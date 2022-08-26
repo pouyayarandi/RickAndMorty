@@ -60,18 +60,12 @@ class ToastMessageView: UIView {
 }
 
 class ToastMessage {
-    private static var defaultView: UIView? {
-        UIApplication.shared.delegate?.window?.flatMap { $0 }
-    }
-    
     #if DEBUG
     static var dismissAutomatically = true
     #endif
     
     @MainActor
-    static func showError(message: String, on view: UIView? = defaultView) async {
-        guard let parent = view else { return }
-        
+    static func showError(message: String, on parent: UIView, duration: TimeInterval = 2) async {        
         let view = ToastMessageView()
         view.message = message
         view.type = .error
@@ -101,7 +95,7 @@ class ToastMessage {
         guard dismissAutomatically else { return }
         #endif
         
-        try? await Task.sleep(seconds: 2)
+        try? await Task.sleep(seconds: duration)
         
         await UIView.animate(withDuration: 0.3) {
             openConstraint.isActive = false
