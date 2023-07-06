@@ -21,11 +21,18 @@ class MockImageCache: ImageCacheProtocol {
 }
 
 class MockCharacterListViewModel: CharacterListViewModelProtocol {
-    var output: CharacterListOutput = .init()
+    @Published var _items: [CharacterResponse] = []
+    var items: Output<[CharacterResponse]> {
+        (_items, $_items.eraseToAnyPublisher())
+    }
+    
+    var error: AnyPublisher<String, Never> {
+        Empty().eraseToAnyPublisher()
+    }
     
     func viewDidLoad() {
         let data: CharacterListResponse = FileHelper.objectFromFile("Character-1")
-        output.items = data.results
+        _items = data.results
     }
     
     func viewDidRequestForNextPage() {}
@@ -41,9 +48,23 @@ class CharacterListViewControllerTests: XCTestCase {
             sut.loadViewIfNeeded()
         }
         
+        var lightTrait: UITraitCollection {
+            .init(traitsFrom: [
+                .init(displayScale: 1),
+                .init(userInterfaceStyle: .light)
+            ])
+        }
+        
+        var darkTrait: UITraitCollection {
+            .init(traitsFrom: [
+                .init(displayScale: 1),
+                .init(userInterfaceStyle: .dark)
+            ])
+        }
+        
         await MainActor.run {
-            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .light)))
-            assertSnapshot(matching: sut, as: .image(on: .iPhone8, traits: .init(userInterfaceStyle: .dark)))
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, size: .init(width: 375, height: 667), traits: lightTrait))
+            assertSnapshot(matching: sut, as: .image(on: .iPhone8, size: .init(width: 375, height: 667), traits: darkTrait))
         }
     }
 }

@@ -8,21 +8,26 @@
 import Foundation
 import Combine
 
-class CharacterListOutput {
-    @Published var items: [CharacterResponse] = []
-    var error: PassthroughSubject<String, Never> = .init()
-}
-
 protocol CharacterListViewModelProtocol: AnyObject {
-    var output: CharacterListOutput { get set }
-    
+    var items: Output<[CharacterResponse]> { get }
+    var error: AnyPublisher<String, Never> { get }
     func viewDidLoad() async
     func viewDidRequestForNextPage() async
 }
 
 class CharacterListViewModel: CharacterListViewModelProtocol {
-    var output: CharacterListOutput = .init()
-    var repository: CharacterRepositoryProtocol
+    
+    @Published private var _items: [CharacterResponse] = []
+    private var _error: PassthroughSubject<String, Never> = .init()
+    private var repository: CharacterRepositoryProtocol
+    
+    var items: Output<[CharacterResponse]> {
+        (_items, $_items.eraseToAnyPublisher())
+    }
+    
+    var error: AnyPublisher<String, Never> {
+        _error.eraseToAnyPublisher()
+    }
     
     init?(container: IoCContainer) {
         guard let repository = container.resolve(CharacterRepositoryProtocol.self) else {
@@ -43,18 +48,18 @@ class CharacterListViewModel: CharacterListViewModelProtocol {
     private func getFirstPage() async {
         do {
             let data = try await repository.getCharactersFirstPage()
-            output.items = data.results
+            _items = data.results
         } catch {
-            output.error.send(error.localizedDescription)
+            _error.send(error.localizedDescription)
         }
     }
     
     private func getNextPage() async {
         do {
             let data = try await repository.getCharactersNextPage()
-            output.items.append(contentsOf: data?.results ?? [])
+            _items.append(contentsOf: data?.results ?? [])
         } catch {
-            output.error.send(error.localizedDescription)
+            _error.send(error.localizedDescription)
         }
     }
 }

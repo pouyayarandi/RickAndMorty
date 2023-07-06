@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9243D3FA298ED51300F530AD /* Output.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9243D3F9298ED51300F530AD /* Output.swift */; };
 		9248A93827A99298001DB54E /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9248A93727A99298001DB54E /* FileHelper.swift */; };
 		9248A93A27A993F0001DB54E /* Character-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 9248A93927A993F0001DB54E /* Character-1.json */; };
 		9248A93C27A994E9001DB54E /* Character-2.json in Resources */ = {isa = PBXBuildFile; fileRef = 9248A93B27A994E9001DB54E /* Character-2.json */; };
@@ -78,6 +79,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9243D3F9298ED51300F530AD /* Output.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Output.swift; sourceTree = "<group>"; };
 		9248A93727A99298001DB54E /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		9248A93927A993F0001DB54E /* Character-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Character-1.json"; sourceTree = "<group>"; };
 		9248A93B27A994E9001DB54E /* Character-2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Character-2.json"; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				92930CE027A889FF005D1B5E /* NetworkLayer.swift */,
 				9248A94127A99C93001DB54E /* ImageCache.swift */,
 				9248A94927A9CB19001DB54E /* ImageAsset.swift */,
+				9243D3F9298ED51300F530AD /* Output.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				9248A95927AB3CD2001DB54E /* CharacterCell.swift in Sources */,
 				92930CEA27A892A8005D1B5E /* PageData.swift in Sources */,
 				92930CE127A889FF005D1B5E /* NetworkLayer.swift in Sources */,
+				9243D3FA298ED51300F530AD /* Output.swift in Sources */,
 				92FA1C3E27AC175300BA8D70 /* LocationListViewModel.swift in Sources */,
 				92FA1C4327AC19DE00BA8D70 /* LocationListViewController.swift in Sources */,
 				92FA1C2427ABEE3000BA8D70 /* MainViewController.swift in Sources */,

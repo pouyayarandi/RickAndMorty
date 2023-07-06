@@ -25,14 +25,14 @@ class CharacterListViewModelTests: XCTestCase {
     
     func testViewDidLoad() async throws {
         await sut.viewDidLoad()
-        XCTAssertEqual(sut.output.items.last?.name, "Ants in my Eyes Johnson")
-        XCTAssertEqual(sut.output.items.count, 20)
+        XCTAssertEqual(sut.items.value.last?.name, "Ants in my Eyes Johnson")
+        XCTAssertEqual(sut.items.value.count, 20)
     }
     
     func testViewDidRequestForNextPage() async {
         await sut.viewDidLoad()
         await sut.viewDidRequestForNextPage()
-        XCTAssertEqual(sut.output.items.last?.name, "Beth's Mytholog")
-        XCTAssertEqual(sut.output.items.count, 40)
+        XCTAssertEqual(sut.items.value.last?.name, "Beth's Mytholog")
+        XCTAssertEqual(sut.items.value.count, 40)
     }
 }

@@ -45,14 +45,14 @@ class CharacterListViewController: BaseViewController {
     }
     
     private func bindView() {
-        viewModel.output.$items
+        viewModel.items.publisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.tableView.reloadData()
             }
             .store(in: &bag)
 
-        viewModel.output.error
+        viewModel.error
             .sink { [weak self] message in
                 self?.showMessage(for: message)
             }
@@ -64,11 +64,11 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     func numberOfSections(in tableView: UITableView) -> Int { 1 }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.output.items.count
+        viewModel.items.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = viewModel.output.items[indexPath.row]
+        let item = viewModel.items.value[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: Self.cellID, for: indexPath) as! CharacterCell
         
         cell.avatar = URLImageAsset(URL(string: item.image ?? ""), cache: imageCache)
@@ -84,7 +84,7 @@ extension CharacterListViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         Task {
-            let indexPath = IndexPath(row: viewModel.output.items.count - 1, section: 0)
+            let indexPath = IndexPath(row: viewModel.items.value.count - 1, section: 0)
             if indexPaths.contains(indexPath) {
                 await viewModel.viewDidRequestForNextPage()
             }
