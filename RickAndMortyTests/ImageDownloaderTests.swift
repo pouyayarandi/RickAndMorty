@@ -17,11 +17,18 @@ struct ImageResponse: Response {
 class ImageViewTests: XCTestCase {
 
     var sut: ImageView!
-    var expectation = XCTestExpectation()
+    var expectation: XCTestExpectation!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         sut = ImageView()
+        expectation = .init()
+    }
+
+    override func tearDownWithError() throws {
+        sut = nil
+        expectation = nil
+        try super.tearDownWithError()
     }
 
     func testImageViewLoadURLImage() throws {
@@ -30,11 +37,12 @@ class ImageViewTests: XCTestCase {
 
         sut.imageAsset = URLImageAsset(.init(string: "https://example.com/image.png")!, session: .init(configuration: config))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            XCTAssertEqual(self.sut.image?.pngData(), ImageResponse.responseData)
+        let observation = sut.publisher(for: \.image).compactMap({ $0 }).sink { image in
+            XCTAssertEqual(image?.pngData(), ImageResponse.responseData)
             self.expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 1)
+        observation.cancel()
     }
 }

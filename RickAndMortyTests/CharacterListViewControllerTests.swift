@@ -40,6 +40,11 @@ class MockCharacterListViewModel: CharacterListViewModelProtocol {
 
 class CharacterListViewControllerTests: XCTestCase {
     var sut: CharacterListViewController!
+
+    override func tearDownWithError() throws {
+        sut = nil
+        try super.tearDownWithError()
+    }
     
     func testLoadCharacterListView() async {
         await MainActor.run {
