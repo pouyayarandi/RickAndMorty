@@ -57,7 +57,6 @@
 		92FA1C4A27AC1CF900BA8D70 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C4927AC1CF900BA8D70 /* String+Extensions.swift */; };
 		92FA1C4C27AC1E0200BA8D70 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA1C4B27AC1E0200BA8D70 /* ToastMessage.swift */; };
 		92FA32CE27AB3FAF00E4FE13 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32CD27AB3FAF00E4FE13 /* BaseCell.swift */; };
-		92FA32D127AB455400E4FE13 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 92FA32D027AB455400E4FE13 /* SnapshotTesting */; };
 		92FA32D327AB458600E4FE13 /* CharacterListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FA32D227AB458600E4FE13 /* CharacterListViewControllerTests.swift */; };
 		92FE7E642A56E99700C23447 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE7E632A56E99700C23447 /* Page.swift */; };
 		92FE7E662A56EDB700C23447 /* LocationsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE7E652A56EDB700C23447 /* LocationsPage.swift */; };
@@ -154,7 +153,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92FA32D127AB455400E4FE13 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +451,6 @@
 			);
 			name = RickAndMortyTests;
 			packageProductDependencies = (
-				92FA32D027AB455400E4FE13 /* SnapshotTesting */,
 			);
 			productName = RickAndMortyTests;
 			productReference = 92930CBE27A88070005D1B5E /* RickAndMortyTests.xctest */;
@@ -510,7 +507,6 @@
 			);
 			mainGroup = 92930C9F27A8806E005D1B5E;
 			packageReferences = (
-				92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				92FA1C3127AC0A5A00BA8D70 /* XCRemoteSwiftPackageReference "Swinject" */,
 			);
 			productRefGroup = 92930CA927A8806E005D1B5E /* Products */;
@@ -830,7 +826,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -854,7 +850,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -964,14 +960,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -979,11 +967,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 92FA1C3127AC0A5A00BA8D70 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
-		};
-		92FA32D027AB455400E4FE13 /* SnapshotTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 92FA32CF27AB455400E4FE13 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
-			productName = SnapshotTesting;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

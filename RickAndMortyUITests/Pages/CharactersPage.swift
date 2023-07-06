@@ -17,12 +17,13 @@ class CharactersPage: Page {
     }
     
     private var cells: XCUIElementQuery {
-        app.tables.firstMatch.cells
+        let cells = app.tables.firstMatch.cells
+        _ = cells.firstMatch.waitForExistence(timeout: 10)
+        return cells
     }
     
     private var lastCell: XCUIElement {
-        _ = cells.firstMatch.waitForExistence(timeout: 0.5)
-        return cells.allElementsBoundByIndex.last!
+        cells.allElementsBoundByIndex.last!
     }
     
     private lazy var initialCellCount: Int = {

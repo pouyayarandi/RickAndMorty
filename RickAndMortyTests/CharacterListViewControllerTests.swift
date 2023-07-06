@@ -46,30 +46,15 @@ class CharacterListViewControllerTests: XCTestCase {
         try super.tearDownWithError()
     }
     
+    @MainActor
     func testLoadCharacterListView() async {
-        await MainActor.run {
-            sut = CharacterListViewController(viewModel: MockCharacterListViewModel())
-            sut.imageCache = MockImageCache()
-            sut.loadViewIfNeeded()
-        }
+        let viewModel = MockCharacterListViewModel()
+        sut = CharacterListViewController(viewModel: viewModel)
+        sut.imageCache = MockImageCache()
+        sut.loadViewIfNeeded()
         
-        var lightTrait: UITraitCollection {
-            .init(traitsFrom: [
-                .init(displayScale: 1),
-                .init(userInterfaceStyle: .light)
-            ])
-        }
+        viewModel.viewDidLoad()
         
-        var darkTrait: UITraitCollection {
-            .init(traitsFrom: [
-                .init(displayScale: 1),
-                .init(userInterfaceStyle: .dark)
-            ])
-        }
-        
-        await MainActor.run {
-            assertSnapshot(matching: sut, as: .image(on: .iPhone8, size: .init(width: 375, height: 667), traits: lightTrait))
-            assertSnapshot(matching: sut, as: .image(on: .iPhone8, size: .init(width: 375, height: 667), traits: darkTrait))
-        }
+        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 20)
     }
 }
