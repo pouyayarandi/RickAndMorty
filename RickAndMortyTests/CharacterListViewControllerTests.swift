@@ -8,7 +8,6 @@
 import Foundation
 import XCTest
 import Combine
-import SnapshotTesting
 @testable import RickAndMorty
 
 class MockImageCache: ImageCacheProtocol {
