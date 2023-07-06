@@ -9,9 +9,18 @@ import XCTest
 @testable import RickAndMorty
 
 class ToastMessageTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(false)
+    }
+
+    override func tearDown() {
+        UIView.setAnimationsEnabled(true)
+        super.tearDown()
+    }
+    
     @MainActor
     func testShowToastMessage() async throws {
-        UIView.setAnimationsEnabled(false)
         ToastMessage.dismissAutomatically = false
         let view = UIView()
         
@@ -22,7 +31,6 @@ class ToastMessageTests: XCTestCase {
     
     @MainActor
     func testToastMessageIsBeingRemovedAfter() async throws {
-        UIView.setAnimationsEnabled(false)
         ToastMessage.dismissAutomatically = true
         let view = UIView()
         
